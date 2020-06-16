@@ -804,6 +804,9 @@ static ssize_t writeback_store(struct device *dev,
 	else if (sysfs_streq(buf, "idle"))
 #endif
 		mode = IDLE_WRITEBACK;
+	else if (sysfs_streq(buf, "idle"))
+#endif
+		mode = IDLE_WRITEBACK;
 	else if (!strcmp(mode_buf, "huge"))
 		mode = HUGE_WRITEBACK;
 

@@ -1266,7 +1266,6 @@ static void binder_transaction_priority(struct task_struct *task,
 	t->saved_priority.prio = task->normal_prio;
 
 	if (!inherit_rt && is_rt_policy(desired_prio.sched_policy)) {
-#if IS_ENABLED(CONFIG_MIHW)
 		/*
 		 * MIUI MOD:
 		 * We boost some app process to FIFO, but binder out thread
@@ -1274,9 +1273,6 @@ static void binder_transaction_priority(struct task_struct *task,
 		 * desired_prio.prio = NICE_TO_PRIO(0);
 		 */
 		desired_prio.prio = NICE_TO_PRIO(-10);
-#else
-		desired_prio.prio = NICE_TO_PRIO(0);
-#endif
 		desired_prio.sched_policy = SCHED_NORMAL;
 	}
 

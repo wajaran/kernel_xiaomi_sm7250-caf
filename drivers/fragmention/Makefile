@@ -1,1 +1,1 @@
-obj-y	+= fragmentize.o
+obj-$(CONFIG_MI_FRAGMENTION)	+= fragmentize.o

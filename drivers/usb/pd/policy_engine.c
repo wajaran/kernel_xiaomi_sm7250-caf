@@ -355,8 +355,8 @@ static void *usbpd_ipc_log;
 #define PD_MIN_SINK_CURRENT	900
 
 #define PD_VBUS_MAX_VOLTAGE_LIMIT		9000000
-#define MAX_FIXED_PDO_MA		2000
-#define MAX_NON_COMPLIANT_PPS_UA		2000000
+#define MAX_FIXED_PDO_MA		3000
+#define MAX_NON_COMPLIANT_PPS_UA		3000000
 
 #ifdef CONFIG_BQ2597X_CHARGE_PUMP
 static int min_sink_current = 900;

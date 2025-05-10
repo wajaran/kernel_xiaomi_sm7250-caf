@@ -1517,6 +1517,10 @@ struct task_struct {
 	 *
 	 * Do not put anything below here!
 	 */
+
+#ifdef CONFIG_PACKAGE_RUNTIME_INFO
+	struct package_runtime_info pkg;
+#endif
 };
 
 static inline struct pid *task_pid(struct task_struct *task)

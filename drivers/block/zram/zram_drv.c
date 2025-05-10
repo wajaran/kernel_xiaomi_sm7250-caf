@@ -331,6 +331,8 @@ static ssize_t idle_store(struct device *dev,
 	struct zram *zram = dev_to_zram(dev);
 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
 	int index;
+	char mode_buf[8];
+	ssize_t sz;
 #ifdef CONFIG_MIUI_ZRAM_MEMORY_TRACKING
 	int mark_nr = 0;
 #endif
@@ -796,13 +798,19 @@ static ssize_t writeback_store(struct device *dev,
 	unsigned int wb_idle_min = ZRAM_WB_IDLE_DEFAULT;
 #endif
 
+	sz = strscpy(mode_buf, buf, sizeof(mode_buf));
+	if (sz <= 0)
+		return -EINVAL;
+
+	/* ignore trailing newline */
+	if (mode_buf[sz - 1] == '\n')
+		mode_buf[sz - 1] = 0x00;
+
+	if (!strcmp(mode_buf, "idle"))
 #if !defined(CONFIG_MIUI_ZRAM_MEMORY_TRACKING)
 	if (sysfs_streq(buf, "idle"))
 #else
 	if (writeback_parse_input(buf, &wb_max, &wb_idle_min))
-		mode = IDLE_WRITEBACK;
-	else if (sysfs_streq(buf, "idle"))
-#endif
 		mode = IDLE_WRITEBACK;
 	else if (sysfs_streq(buf, "idle"))
 #endif
